@@ -8,6 +8,7 @@ from telegram.ext import Updater, CommandHandler, Filters, MessageHandler, Callb
 
 # Custom import
 from utils.dialogflow import get_reply
+from utils.newsclient import fetch_news
 
 dotenv.load_dotenv()
 
@@ -43,7 +44,11 @@ def echo_text(update: Update, context: CallbackContext):
         update.effective_message.text, update.effective_message.chat_id)
 
     if intent == "get_news":
-        update.message.reply_text(f"{update.effective_message.text}")
+        # update.message.reply_text(f"News for\n{json.dumps(reply, indent=2)}")
+        news = fetch_news(reply)
+
+        for n in news:
+            update.message.reply_text(n.get("link"))
     else:
         update.message.reply_text(text=reply)
 
