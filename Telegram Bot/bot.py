@@ -6,6 +6,9 @@ from flask import Flask, request
 from telegram import Update, Bot
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler, CallbackContext, Dispatcher
 
+# Custom import
+from utils.dialogflow import get_reply
+
 dotenv.load_dotenv()
 
 # enable logging
@@ -33,8 +36,16 @@ def _aboutme(update: Update, context: CallbackContext):
 
 
 def echo_text(update: Update, context: CallbackContext):
-    update.message.reply_text(f"{update.effective_message.text}")
-    # print(json.dumps(update.effective_message.to_dict(), indent=2, ensure_ascii=False))
+    # Echo Function
+    # update.message.reply_text(f"{update.effective_message.text}")
+
+    intent, reply = get_reply(
+        update.effective_message.text, update.effective_message.chat_id)
+
+    if intent == "get_news":
+        update.message.reply_text(f"{update.effective_message.text}")
+    else:
+        update.message.reply_text(text=reply)
 
 
 def echo_sticker(update: Update, context: CallbackContext):
