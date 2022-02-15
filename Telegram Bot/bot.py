@@ -3,12 +3,13 @@ import logging
 import os
 import dotenv
 from flask import Flask, request
-from telegram import Update, Bot
+from telegram import ReplyKeyboardMarkup, Update, Bot
 from telegram.ext import Updater, CommandHandler, Filters, MessageHandler, CallbackContext, Dispatcher
 
 # Custom import
 from utils.dialogflow import get_reply
 from utils.newsclient import fetch_news
+from utils.constants import topics_keyboard
 
 dotenv.load_dotenv()
 
@@ -34,6 +35,11 @@ def _help(update: Update, context: CallbackContext):
 def _aboutme(update: Update, context: CallbackContext):
     update.message.reply_text(json.dumps(
         update.effective_user.to_dict(), indent=2, ensure_ascii=False))
+
+
+def _news(update: Update, context: CallbackContext):
+    update.message.reply_text(text="Choose a category", reply_markup=ReplyKeyboardMarkup(
+        keyboard=topics_keyboard, one_time_keyboard=True))
 
 
 def echo_text(update: Update, context: CallbackContext):
@@ -115,6 +121,7 @@ if __name__ == "__main__":
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", _help))
     dp.add_handler(CommandHandler("aboutme", _aboutme))
+    dp.add_handler(CommandHandler("news", _news))
     dp.add_handler(MessageHandler(Filters.text, echo_text))
     dp.add_handler(MessageHandler(Filters.sticker, echo_sticker))
 
