@@ -34,3 +34,4 @@ My Data Science course dump, containing my approaches and implementations of eve
 28. [Principal Component Analysis](./Principal%20Component%20Analysis/)
 29. [Natural Language Preprocessing](./Natural%20Language%20Preprocessing/)
 30. [Naive Bayes Classifier](./Naive%20Bayes%20Classifier/)
+31. [Movie Review Classification](./Movie%20Review%20Classification/)
