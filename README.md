@@ -35,3 +35,4 @@ My Data Science course dump, containing my approaches and implementations of eve
 29. [Natural Language Preprocessing](./Natural%20Language%20Preprocessing/)
 30. [Naive Bayes Classifier](./Naive%20Bayes%20Classifier/)
 31. [Movie Review Classification](./Movie%20Review%20Classification/)
+32. [Decision Trees and Random Forest](./Decision%20Trees%20and%20Random%20Forest/)
